@@ -1,8 +1,9 @@
 package com.ds.util;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.Scanner;
+import com.sun.jmx.remote.internal.ArrayQueue;
+
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Utils {
 
@@ -48,10 +49,15 @@ public class Utils {
             adj[v].add(w);
         }
 
+        /**
+         * Print Nodes as of Breath First Search.
+         * @param source
+         */
+
         public void printBFS(int source) {
             boolean visited[] = new boolean[vertices];
 
-            LinkedList<Integer> queue = new LinkedList<Integer>();
+            LinkedList<Integer> queue = new LinkedList<>();
             visited[source] = true;
             queue.add(source);
             while (queue.size() != 0) {
@@ -68,6 +74,11 @@ public class Utils {
             }
         }
 
+        /**
+         * Find Mother Vertex of Graph
+         * @return
+         */
+
         public int findMother(){
 
             outer:for(int i=0;i<vertices;i++) {
@@ -83,17 +94,12 @@ public class Utils {
                     Iterator<Integer> x = adj[temp].listIterator();
                     while (x.hasNext()) {
                         int ne = x.next();
-
                         if (!visited[ne]) {
                             visited[ne] = true;
                             queue.add(ne);
                         }
                     }
-
-
                 }
-
-
                 for(boolean bc:visited){
                     if(!bc){
                           continue outer;
@@ -103,6 +109,12 @@ public class Utils {
             }
            return -1;
         }
+
+        /**
+         * Find Path From Source to Destination.
+         * @param source
+         * @param destination
+         */
 
         public void pathFind(int source, int destination) {
             boolean visited[] = new boolean[vertices];
@@ -128,6 +140,16 @@ public class Utils {
                     }
                 }
             }
+        }
+
+        public  int findSumOfDependencies(){
+            int i =0;
+            int sum = 0;
+            while(i<=vertices-1){
+            sum += adj[i].size();
+            i++;
+            }
+            return sum;
         }
     }
 }
